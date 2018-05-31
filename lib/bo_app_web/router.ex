@@ -19,6 +19,12 @@ defmodule BoAppWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/chat", BoAppWeb do
+    pipe_through :browser
+
+    resources "/users", UserController, except: [:show]
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", BoAppWeb do
   #   pipe_through :api
