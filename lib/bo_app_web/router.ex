@@ -9,24 +9,30 @@ defmodule BoAppWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :auth do
+    plug BoAppWeb.AuthPlug
   end
 
-  scope "/", BoAppWeb do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
+  pipeline :no_session do
+    plug BoAppWeb.NoSessionPlug
   end
 
   scope "/chat", BoAppWeb do
     pipe_through :browser
 
-    resources "/users", UserController, except: [:show]
-  end
+    get "/", PageController, :index
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BoAppWeb do
-  #   pipe_through :api
-  # end
+    scope "/" do
+    pipe_through :no_session
+      resources "/users", UserController, only: [:new, :create]
+      resources "/sessions", SessionController, only: [:new, :create]
+    end
+
+    scope "/" do
+      pipe_through :auth
+
+      resources "/users", UserController, only: [:index]
+      resources "/sessions", SessionController, only: [:delete], singleton: true
+    end
+  end
 end

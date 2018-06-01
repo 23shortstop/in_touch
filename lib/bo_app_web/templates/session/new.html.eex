@@ -1,0 +1,5 @@
+<h2>Sign In</h2>
+
+<%= render "form.html", Map.put(assigns, :action, session_path(@conn, :create)) %>
+
+<span><%= link "Sign Up", to: user_path(@conn, :new) %></span>

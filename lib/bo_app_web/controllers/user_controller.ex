@@ -17,9 +17,11 @@ defmodule BoAppWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Chat.create_user(user_params) do
       {:ok, user} ->
+        token = Phoenix.Token.sign(BoAppWeb.Endpoint, "user salt", user.id)
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> put_session(:auth_token, token)
+        |> redirect(to: user_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -40,10 +42,10 @@ defmodule BoAppWeb.UserController do
     user = Chat.get_user!(id)
 
     case Chat.update_user(user, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: user_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
