@@ -1,8 +1,8 @@
 defmodule InTouchWeb.SessionController do
   use InTouchWeb, :controller
 
-  alias InTouch.Chat.User
-  alias InTouch.Chat.Session
+  alias InTouch.Identification.User
+  alias InTouchWeb.Session
   alias Comeonin.Bcrypt
 
   def new(conn, _params) do

@@ -1,4 +1,4 @@
-defmodule InTouchWeb.Token do
+defmodule InTouch.Identification.AuthToken do
 
   @token_age 86400
   @token_salt "987435uweur98sfvui3r783yriuhsfkduy8723y"

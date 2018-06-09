@@ -1,7 +1,7 @@
-defmodule InTouch.Chat.Session do
+defmodule InTouchWeb.Session do
   import Phoenix.Controller
   import Plug.Conn
-  alias InTouchWeb.Token
+  alias InTouch.Identification.AuthToken
   alias InTouchWeb.Router.Helpers, as: Routes
 
   @doc """
@@ -9,7 +9,7 @@ defmodule InTouch.Chat.Session do
   application path
   """
   def log_in(conn, user) do
-    token = Token.sign(user)
+    token = AuthToken.sign(user)
     put_session(conn, :auth_token, token)
     |> redirect(to: Routes.user_path(conn, :index))
   end
@@ -21,8 +21,8 @@ defmodule InTouch.Chat.Session do
   """
   def current_user(conn) do
     with token when not is_nil(token) <- get_session(conn, :auth_token),
-         {:ok, user_id} <- Token.verify(token),
-         {:ok, user} <- InTouch.Chat.get_user(user_id) do
+         {:ok, user_id} <- AuthToken.verify(token),
+         {:ok, user} <- InTouch.Identification.get_user(user_id) do
            {:ok, user}
          else
           _ -> {:error, :unauthorized}

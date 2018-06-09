@@ -1,14 +1,14 @@
 defmodule InTouchWeb.UserControllerTest do
   use InTouchWeb.ConnCase
 
-  alias InTouch.Chat
+  alias InTouch.Identification
 
   @create_attrs %{name: "some name", password: "some password"}
   @update_attrs %{name: "some updated name", password: "some updated password"}
   @invalid_attrs %{name: nil, password: nil}
 
   def fixture(:user) do
-    {:ok, user} = Chat.create_user(@create_attrs)
+    {:ok, user} = Identification.create_user(@create_attrs)
     user
   end
 

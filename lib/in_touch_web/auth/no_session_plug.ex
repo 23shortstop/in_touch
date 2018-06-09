@@ -1,7 +1,7 @@
 defmodule InTouchWeb.NoSessionPlug do
   import Phoenix.Controller
   import Plug.Conn
-  alias InTouch.Chat.Session
+  alias InTouchWeb.Session
 
   def init(opts), do: opts
 

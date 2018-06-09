@@ -1,12 +1,12 @@
 defmodule InTouchWeb.UserController do
   use InTouchWeb, :controller
 
-  alias InTouch.Chat
-  alias InTouch.Chat.User
-  alias InTouch.Chat.Session
+  alias InTouch.Identification
+  alias InTouch.Identification.User
+  alias InTouchWeb.Session
 
   def index(conn, _params) do
-    users = Chat.list_users()
+    users = Identification.list_users()
     render(conn, "index.html", users: users)
   end
 
@@ -16,7 +16,7 @@ defmodule InTouchWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Chat.create_user(user_params) do
+    case Identification.create_user(user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")

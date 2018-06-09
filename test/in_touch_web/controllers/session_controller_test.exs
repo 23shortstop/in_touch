@@ -1,14 +1,14 @@
 defmodule InTouchWeb.SessionControllerTest do
   use InTouchWeb.ConnCase
 
-  alias InTouch.Chat
+  alias InTouch.Identification
 
   @create_attrs %{}
   @update_attrs %{}
   @invalid_attrs %{}
 
   def fixture(:session) do
-    {:ok, session} = Chat.create_session(@create_attrs)
+    {:ok, session} = Identification.create_session(@create_attrs)
     session
   end
 

@@ -1,13 +1,13 @@
-defmodule InTouch.Chat do
+defmodule InTouch.Identification do
   @moduledoc """
-  The Chat context.
+  The Identification context.
   """
 
   import Ecto.Query, warn: false
   import Ecto.Changeset, only: [put_change: 3]
   alias InTouch.Repo
 
-  alias InTouch.Chat.User
+  alias InTouch.Identification.User
   alias Comeonin.Bcrypt
 
   @doc """

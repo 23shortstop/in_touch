@@ -2,7 +2,7 @@ defmodule InTouchWeb.SessionPlug do
   import Phoenix.Controller
   alias InTouchWeb.Router.Helpers, as: Routes
   import Plug.Conn
-  alias InTouch.Chat.Session
+  alias InTouchWeb.Session
 
   def init(opts), do: opts
 

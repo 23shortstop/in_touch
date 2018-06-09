@@ -1,4 +1,4 @@
-defmodule InTouch.Chat.User do
+defmodule InTouch.Identification.User do
   use Ecto.Schema
   import Ecto.Changeset
 
