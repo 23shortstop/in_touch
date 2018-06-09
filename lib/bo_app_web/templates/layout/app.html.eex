@@ -20,7 +20,7 @@
               <li><%= link "Log Out", to: session_path(@conn, :delete), method: :delete %></li>
             </ul>
           </nav>
-        <%= end %>
+        <% end %>
         <span class="logo"></span>
       </header>
 

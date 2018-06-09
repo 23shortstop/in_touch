@@ -4,9 +4,11 @@ defmodule BoApp.Chat do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset, only: [put_change: 3]
   alias BoApp.Repo
 
   alias BoApp.Chat.User
+  alias Comeonin.Bcrypt
 
   @doc """
   Returns the list of users.
@@ -50,8 +52,9 @@ defmodule BoApp.Chat do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
+    changeset = %User{} |> User.changeset(attrs)
+    changeset
+    |> put_change(:encrypted_password, Bcrypt.hashpwsalt(changeset.params["password"]))
     |> Repo.insert()
   end
 

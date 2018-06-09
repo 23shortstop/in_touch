@@ -4,7 +4,8 @@ defmodule BoApp.Chat.User do
 
   schema "users" do
     field :name, :string
-    field :password, :string
+    field :encrypted_password, :string
+    field :password, :string, virtual: true
 
     timestamps()
   end
