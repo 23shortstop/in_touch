@@ -1,4 +1,4 @@
-defmodule BoApp.DataCase do
+defmodule InTouch.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule BoApp.DataCase do
 
   using do
     quote do
-      alias BoApp.Repo
+      alias InTouch.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import BoApp.DataCase
+      import InTouch.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(BoApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(InTouch.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(BoApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(InTouch.Repo, {:shared, self()})
     end
 
     :ok

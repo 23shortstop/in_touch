@@ -1,4 +1,4 @@
-defmodule BoApp.Repo.Migrations.CreateUsers do
+defmodule InTouch.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

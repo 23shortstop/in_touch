@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :bo_app, BoAppWeb.Endpoint,
+config :in_touch, InTouchWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,13 +31,13 @@ config :bo_app, BoAppWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :bo_app, BoAppWeb.Endpoint,
+config :in_touch, InTouchWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/bo_app_web/views/.*(ex)$},
-      ~r{lib/bo_app_web/templates/.*(eex)$}
+      ~r{lib/in_touch_web/views/.*(ex)$},
+      ~r{lib/in_touch_web/templates/.*(eex)$}
     ]
   ]
 
@@ -49,10 +49,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :bo_app, BoApp.Repo,
+config :in_touch, InTouch.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "bo_app_dev",
+  database: "in_touch_dev",
   hostname: "localhost",
   pool_size: 10

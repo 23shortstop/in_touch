@@ -1,4 +1,4 @@
-defmodule BoAppWeb.ChannelCase do
+defmodule InTouchWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule BoAppWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint BoAppWeb.Endpoint
+      @endpoint InTouchWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(BoApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(InTouch.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(BoApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(InTouch.Repo, {:shared, self()})
     end
     :ok
   end

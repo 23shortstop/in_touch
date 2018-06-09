@@ -1,4 +1,4 @@
-# BoApp
+# InTouch
 
 To start your Phoenix server:
 

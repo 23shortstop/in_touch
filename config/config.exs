@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :bo_app,
-  ecto_repos: [BoApp.Repo]
+config :in_touch,
+  ecto_repos: [InTouch.Repo]
 
 # Configures the endpoint
-config :bo_app, BoAppWeb.Endpoint,
+config :in_touch, InTouchWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "qaYu2TJdhjTVIbqqKgPO6w7CPTaacPWMy+hiFQg4wrT79m3U/SQxGMQdDIbC34Pk",
-  render_errors: [view: BoAppWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: BoApp.PubSub,
+  render_errors: [view: InTouchWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: InTouch.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
