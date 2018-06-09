@@ -1,4 +1,5 @@
-defmodule BoAppWeb.AuthToken do
+defmodule BoAppWeb.Token do
+
   @token_age 86400
   @token_salt "987435uweur98sfvui3r783yriuhsfkduy8723y"
 

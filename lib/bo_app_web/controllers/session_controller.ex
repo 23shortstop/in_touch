@@ -1,22 +1,23 @@
 defmodule BoAppWeb.SessionController do
   use BoAppWeb, :controller
 
-  alias BoApp.Chat
   alias BoApp.Chat.User
+  alias BoApp.Chat.Session
   alias Comeonin.Bcrypt
-  alias BoAppWeb.AuthToken
 
   def new(conn, _params) do
-    changeset = Chat.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html")
   end
 
-  def create(conn, %{"user" => %{"name" => name, "password" => password}}) do
-    {:ok, user} = BoApp.Repo.get_by(User, name: name)
-                  |> Bcrypt.check_pass(password)
-    token = AuthToken.sign(user)
-    put_session(conn, :auth_token, token)
-    |> redirect(to: user_path(conn, :index))
+  def create(conn,%{"name" => name, "password" => password}) do
+    with {:ok, user} <- BoApp.Repo.fetch_by(User, name: name),
+         {:ok, user} <- Bcrypt.check_pass(user, password) do
+           Session.log_in(conn, user)
+         else
+           _ -> conn
+                |> put_private(:invalid_credentials, true)
+                |> render("new.html")
+         end
   end
 
   def delete(conn, _) do

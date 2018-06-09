@@ -10,14 +10,14 @@ defmodule BoAppWeb.Router do
   end
 
   pipeline :auth do
-    plug BoAppWeb.AuthPlug
+    plug BoAppWeb.SessionPlug
   end
 
   pipeline :no_session do
     plug BoAppWeb.NoSessionPlug
   end
 
-  scope "/chat", BoAppWeb do
+  scope "/", BoAppWeb do
     pipe_through :browser
 
     get "/", PageController, :index
