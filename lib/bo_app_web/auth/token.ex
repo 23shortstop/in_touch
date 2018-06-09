@@ -5,11 +5,18 @@ defmodule BoAppWeb.Token do
 
   def verify(nil), do: {:error, :empty_token}
 
+  @doc """
+  Decodes the original data from the user authentication token and verifies its integrity.
+  Returns {:ok, user_id} if verified successfully or {:error, :reason} otherwise.
+  """
   def verify(token) do
     BoAppWeb.Endpoint
     |> Phoenix.Token.verify(@token_salt, token, max_age: @token_age)
   end
 
+  @doc """
+  Encodes user id and signs it in an authentication token.
+  """
   def sign(user) do
     BoAppWeb.Endpoint
     |> Phoenix.Token.sign(@token_salt, user.id)

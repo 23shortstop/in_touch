@@ -5,6 +5,9 @@ defmodule BoAppWeb.NoSessionPlug do
 
   def init(opts), do: opts
 
+  @doc """
+  Redirects to the base app path if a user already has a session
+  """
   def call(conn, _opts) do
     case Session.current_user(conn) do
       {:ok, _user} -> conn |> redirect(to: "/") |> halt
