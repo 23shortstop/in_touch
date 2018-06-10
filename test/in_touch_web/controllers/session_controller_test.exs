@@ -3,86 +3,63 @@ defmodule InTouchWeb.SessionControllerTest do
 
   alias InTouch.Identification
 
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{}
+  @user_attrs %{name: "some name", password: "some password"}
+  @invalid_password %{name: "some name", password: "invalid password"}
+  @invalid_name %{name: "invalid name", password: "some password"}
 
-  def fixture(:session) do
-    {:ok, session} = Identification.create_session(@create_attrs)
-    session
-  end
-
-  describe "index" do
-    test "lists all sessions", %{conn: conn} do
-      conn = get conn, session_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Sessions"
-    end
+  def fixture(:user) do
+    {:ok, user} = Identification.create_user(@user_attrs)
+    user
   end
 
   describe "new session" do
     test "renders form", %{conn: conn} do
       conn = get conn, session_path(conn, :new)
-      assert html_response(conn, 200) =~ "New Session"
+      assert html_response(conn, 200) =~ "Sign In"
     end
   end
 
   describe "create session" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post conn, session_path(conn, :create), session: @create_attrs
+    setup [:create_user]
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == session_path(conn, :show, id)
+    test "redirects to listing users when data is valid", %{conn: conn} do
+      conn = post conn, session_path(conn, :create), @user_attrs
 
-      conn = get conn, session_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Session"
+      assert redirected_to(conn) == user_path(conn, :index)
+
+      conn = get conn, user_path(conn, :index)
+      assert html_response(conn, 200) =~ "Listing Users"
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, session_path(conn, :create), session: @invalid_attrs
-      assert html_response(conn, 200) =~ "New Session"
-    end
-  end
-
-  describe "edit session" do
-    setup [:create_session]
-
-    test "renders form for editing chosen session", %{conn: conn, session: session} do
-      conn = get conn, session_path(conn, :edit, session)
-      assert html_response(conn, 200) =~ "Edit Session"
-    end
-  end
-
-  describe "update session" do
-    setup [:create_session]
-
-    test "redirects when data is valid", %{conn: conn, session: session} do
-      conn = put conn, session_path(conn, :update, session), session: @update_attrs
-      assert redirected_to(conn) == session_path(conn, :show, session)
-
-      conn = get conn, session_path(conn, :show, session)
-      assert html_response(conn, 200)
+    test "renders errors when password is invalid", %{conn: conn} do
+      conn = post conn, session_path(conn, :create), @invalid_password
+      assert html_response(conn, 200) =~ "Sign In"
     end
 
-    test "renders errors when data is invalid", %{conn: conn, session: session} do
-      conn = put conn, session_path(conn, :update, session), session: @invalid_attrs
-      assert html_response(conn, 200) =~ "Edit Session"
+    test "renders errors when name is invalid", %{conn: conn} do
+      conn = post conn, session_path(conn, :create), @invalid_name
+      assert html_response(conn, 200) =~ "Sign In"
     end
   end
 
   describe "delete session" do
-    setup [:create_session]
+    setup [:create_user]
 
-    test "deletes chosen session", %{conn: conn, session: session} do
-      conn = delete conn, session_path(conn, :delete, session)
-      assert redirected_to(conn) == session_path(conn, :index)
-      assert_error_sent 404, fn ->
-        get conn, session_path(conn, :show, session)
-      end
+    test "deletes chosen session", %{conn: conn} do
+      conn = post(conn, session_path(conn, :create), @user_attrs)
+             |> get(user_path(conn, :index))
+      assert html_response(conn, 200) =~ "Listing Users"
+
+      conn = delete(conn, session_path(conn, :delete))
+      assert redirected_to(conn) == session_path(conn, :new)
+
+      conn = get conn, user_path(conn, :index)
+      assert redirected_to(conn) == session_path(conn, :new)
     end
   end
 
-  defp create_session(_) do
-    session = fixture(:session)
-    {:ok, session: session}
+  defp create_user(_) do
+    user = fixture(:user)
+    {:ok, user: user}
   end
 end

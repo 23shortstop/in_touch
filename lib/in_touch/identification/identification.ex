@@ -54,10 +54,6 @@ defmodule InTouch.Identification do
 
   """
   def create_user(attrs \\ %{}) do
-    changeset = %User{} |> User.changeset(attrs)
-    changeset
-    |> put_change(:encrypted_password,
-                  Bcrypt.hashpwsalt(changeset.params["password"]))
-    |> Repo.insert()
+    %User{} |> User.changeset(attrs) |> Repo.insert()
   end
 end

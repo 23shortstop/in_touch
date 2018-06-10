@@ -9,7 +9,7 @@ defmodule InTouchWeb.SessionController do
     render(conn, "new.html")
   end
 
-  def create(conn,%{"name" => name, "password" => password}) do
+  def create(conn, %{"name" => name, "password" => password}) do
     with {:ok, user} <- InTouch.Repo.fetch_by(User, name: name),
          {:ok, user} <- Bcrypt.check_pass(user, password) do
            Session.log_in(conn, user)
