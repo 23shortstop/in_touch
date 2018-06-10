@@ -13,6 +13,7 @@ defmodule InTouchWeb.SessionController do
     with {:ok, user} <- InTouch.Repo.fetch_by(User, name: name),
          {:ok, user} <- Bcrypt.check_pass(user, password) do
            Session.log_in(conn, user)
+           |> redirect(to: user_path(conn, :index))
          else
            _ -> conn
                 |> put_private(:invalid_credentials, true)

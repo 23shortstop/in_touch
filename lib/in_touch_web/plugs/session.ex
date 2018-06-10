@@ -1,17 +1,13 @@
 defmodule InTouchWeb.Session do
-  import Phoenix.Controller
   import Plug.Conn
   alias InTouch.Identification.AuthToken
-  alias InTouchWeb.Router.Helpers, as: Routes
 
   @doc """
-  Creates authentication token, puts it to a session and redirects to a base
-  application path
+  Creates authentication token and puts it to a session.
   """
   def log_in(conn, user) do
     token = AuthToken.sign(user)
     put_session(conn, :auth_token, token)
-    |> redirect(to: Routes.user_path(conn, :index))
   end
 
   @doc """

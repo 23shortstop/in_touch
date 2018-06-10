@@ -21,6 +21,7 @@ defmodule InTouchWeb.UserController do
         conn
         |> put_flash(:info, "User created successfully.")
         |> Session.log_in(user)
+        |> redirect(to: user_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
