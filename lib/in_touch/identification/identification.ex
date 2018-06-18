@@ -4,11 +4,9 @@ defmodule InTouch.Identification do
   """
 
   import Ecto.Query, warn: false
-  import Ecto.Changeset, only: [put_change: 3]
   alias InTouch.Repo
 
   alias InTouch.Identification.User
-  alias Comeonin.Bcrypt
 
   @doc """
   Returns the list of users.
