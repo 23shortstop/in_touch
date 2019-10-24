@@ -1,0 +1,24 @@
+<h2>Listing Chats</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for chat <- @chats do %>
+    <tr>
+      <td><%= chat.type %></td>
+      <td><%= title(@conn, chat) %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: chat_path(@conn, :show, chat), class: "btn btn-default btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

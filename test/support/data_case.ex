@@ -22,6 +22,7 @@ defmodule InTouch.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import InTouch.DataCase
+      import InTouch.Factory
     end
   end
 

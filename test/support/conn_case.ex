@@ -20,6 +20,7 @@ defmodule InTouchWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import InTouchWeb.Router.Helpers
+      import InTouch.Factory
 
       # The default endpoint for testing
       @endpoint InTouchWeb.Endpoint

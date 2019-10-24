@@ -1,0 +1,15 @@
+<h2>Show Chat</h2>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @chat.type %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= title(@conn, @chat) %>
+  </li>
+
+</ul>
