@@ -8,6 +8,10 @@ defmodule InTouch.Identification.User do
     field :encrypted_password, :string
     field :password, :string, virtual: true
 
+    has_many :participants, InTouch.Messaging.Participant
+    many_to_many :chats, InTouch.Messaging.Chat,
+                 join_through: InTouch.Messaging.Participant
+
     timestamps()
   end
 

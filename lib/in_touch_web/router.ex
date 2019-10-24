@@ -33,6 +33,7 @@ defmodule InTouchWeb.Router do
 
       resources "/users", UserController, only: [:index]
       resources "/sessions", SessionController, only: [:delete], singleton: true
+      resources "/chats", ChatController, only: [:index, :create, :show]
     end
   end
 end

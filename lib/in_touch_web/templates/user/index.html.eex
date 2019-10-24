@@ -12,6 +12,16 @@
 <%= for user <- @users do %>
     <tr>
       <td><%= user.name %></td>
+
+      <td class="text-right">
+        <span>
+          <%= button "Chat",
+                     to: chat_path(@conn, :create,
+                                   %{chat: %{participant_ids: [user.id], type: "direct"}}),
+                     method: "post",
+                     class: "btn btn-default btn-xs" %>
+        </span>
+      </td>
     </tr>
 <% end %>
   </tbody>

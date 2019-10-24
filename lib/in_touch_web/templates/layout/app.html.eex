@@ -14,7 +14,7 @@
   <body>
     <div class="container">
       <header class="header">
-        <%= if @conn.assigns[:current_user] do %>
+        <%= if assigns[:current_user] do %>
           <nav role="navigation">
             <ul class="nav nav-pills pull-right">
               <li><%= link "Log Out", to: session_path(@conn, :delete), method: :delete %></li>
@@ -32,6 +32,10 @@
       </main>
 
     </div> <!-- /container -->
+    <%= if assigns[:current_user] do %>
+      <script>window.userToken = "<%= user_token(@conn) %>";</script>
+      <script>window.currentUserId = "<%= user_id(@conn) %>";</script>
+    <% end %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
