@@ -14,7 +14,7 @@ defmodule InTouchWeb.UserChannelTest do
   setup do
     user = fixture(:user)
     {:ok, _, socket} =
-      socket("user_sosket:#{user.id}", %{user_id: user.id})
+      socket(InTouchWeb.UserSocket, "user_sosket:#{user.id}", %{user_id: user.id})
       |> subscribe_and_join(UserChannel, "user:#{user.id}")
 
     {:ok, socket: socket}
