@@ -1,5 +1,5 @@
 defmodule InTouch.Repo do
-  use Ecto.Repo, otp_app: :in_touch
+  use Ecto.Repo, otp_app: :in_touch, adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the
