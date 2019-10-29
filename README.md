@@ -17,6 +17,7 @@ https://in-touch-23.herokuapp.com
 
 ### To start application locally:
 
+  * Create a `config.secret.exs` file on a base of `config.secret.exs.sample` in the `config` directory
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `cd assets && npm install`
