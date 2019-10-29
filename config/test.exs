@@ -12,8 +12,6 @@ config :logger, level: :warn
 # Configure your database
 config :in_touch, InTouch.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "in_touch_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
