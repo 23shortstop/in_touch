@@ -19,6 +19,6 @@ defmodule InTouch.Messaging.Chat do
     chat
     |> cast(attrs, [:type, :title, :direct_fingerprint])
     |> validate_required([:type])
-    |> unique_constraint(:participants, name: :direct_participants_index)
+    |> unique_constraint(:participants, name: :direct_fingerprint_index)
   end
 end
