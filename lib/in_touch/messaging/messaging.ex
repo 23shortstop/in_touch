@@ -8,6 +8,7 @@ defmodule InTouch.Messaging do
 
   alias InTouch.Messaging.Chat
   alias InTouch.Messaging.Participant
+  alias InTouch.Messaging.Message
 
   @doc """
   Returns the list of chats for a user.
@@ -43,10 +44,21 @@ defmodule InTouch.Messaging do
   """
   def get_chat!(id), do: Repo.get!(Chat, id)
 
+  @doc """
+  Creates a new chat.
+
+  ## Examples
+
+      iex> create_chat(%{"type" => "direct", "participant_ids" => [1, 2]})
+      {:ok, %Chat{}}
+
+      iex> create_chat(%{"type" => "other", "participant_ids" => [1, 2]})
+      {:error, "Unknown chat type"}
+  """
   def create_chat(%{"type" => type, "participant_ids" => ptcp_ids}) do
     case type do
       "direct" -> direct_chat(ptcp_ids)
-      _ -> :error
+      _ -> {:error, "Unknown chat type"}
     end
   end
 
@@ -71,6 +83,24 @@ defmodule InTouch.Messaging do
         params |> Map.put(:participants, participants) |> insert_chat
       chat -> {:ok, chat}
     end
+  end
+
+  @doc """
+  Creates a new message.
+
+  ## Examples
+
+      iex> create_message(%{body: "Hi!", user_id: 1, chat_id: 1})
+      {:ok, %Chat{}}
+
+      iex> create_message(bad_params)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_message(attrs) do
+    %Message{}
+    |> Message.changeset(attrs)
+    |> Repo.insert
   end
 
   defp direct_fingerprint(participant_ids) do

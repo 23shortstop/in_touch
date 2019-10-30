@@ -17,6 +17,7 @@ defmodule InTouchWeb.ChannelCase do
 
   using do
     quote do
+      import InTouch.Factory
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 

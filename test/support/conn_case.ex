@@ -24,6 +24,15 @@ defmodule InTouchWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint InTouchWeb.Endpoint
+
+      defp log_in(_) do
+        user_params = %{name: "some name", password: "some_password"}
+        insert(:user, user_params)
+
+        conn = build_conn()
+        conn = post(conn, session_path(conn, :create), user_params)
+        {:ok, conn: conn}
+      end
     end
   end
 
@@ -35,5 +44,4 @@ defmodule InTouchWeb.ConnCase do
     end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

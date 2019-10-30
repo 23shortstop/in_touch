@@ -15,5 +15,7 @@ defmodule InTouch.Messaging.Message do
     message
     |> cast(attrs, [:body, :user_id, :chat_id])
     |> validate_required([:body, :user_id, :chat_id])
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:chat_id)
   end
 end
